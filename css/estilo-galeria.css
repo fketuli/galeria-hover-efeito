@@ -1,0 +1,91 @@
+/* --- Estilos da Galeria com Efeito Hover --- */
+
+/* Estrutura do Grid Responsivo */
+.galeria-hover-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr)); /* 1 coluna em telas pequenas (padrão) */
+    gap: 1.5rem; /* Corresponde ao gap-6 */
+}
+
+/* 2 colunas em telas de tablet para cima */
+@media (min-width: 768px) {
+    .galeria-hover-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* 3 colunas em telas de desktop para cima */
+@media (min-width: 1024px) {
+    .galeria-hover-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Estilo de cada item da galeria */
+.galeria-item.group {
+    position: relative; /* Necessário para o posicionamento absoluto do overlay */
+    overflow: hidden; /* Esconde o excesso da imagem que aumenta de tamanho */
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.galeria-item.group:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); /* Sombra mais elegante no hover */
+}
+
+/* Container da imagem para manter a proporção */
+.galeria-item .aspect-square {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+/* Estilo da Imagem */
+.galeria-item .galeria-imagem {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+    transition: transform 0.4s ease-in-out; /* Transição suave para o zoom */
+}
+
+/* Efeito de Zoom na imagem ao passar o mouse no item pai (.group) */
+.galeria-item.group:hover .galeria-imagem {
+    transform: scale(1.10); /* Aumenta a escala da imagem */
+}
+
+/* Overlay que aparece no hover */
+.galeria-item .galeria-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to top, rgba(216, 70, 145, 0.8), transparent, transparent); /* #d84691cc */
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    display: flex;
+    align-items: flex-end; /* Alinha o conteúdo na parte de baixo */
+}
+
+/* Torna o overlay visível no hover */
+.galeria-item.group:hover .galeria-overlay {
+    opacity: 1;
+}
+
+/* Wrapper do texto dentro do overlay */
+.galeria-item .galeria-texto-wrapper {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+}
+
+/* Estilo do texto/categoria */
+.galeria-item .galeria-texto-categoria {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #d84691;
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1.25rem;
+    font-weight: 500; /* font-medium */
+    border-radius: 9999px; /* rounded-full */
+}
